@@ -1,6 +1,7 @@
 const express=require('express')
 const app= express()
-const port=4000
+const port=process.env.PORT || 3000
+require('dotenv').config()
 
 // Github Data Start
 const githubData={
@@ -38,7 +39,40 @@ const githubData={
     "updated_at": "2024-05-31T16:11:42Z"
   }
 // Github data ends 
-require('dotenv').config()
+
+// Getting Jokes 
+app.get('/api/jokes',(req,res)=>{
+    const jokes=[
+        {
+            id:1,
+            title:"A joke",
+            content:'“Whoever stole my depression medication — I hope you’re happy now.”'
+        },
+        {
+            id:2,
+            title:"Another joke",
+            content:'Why can’t a leopard hide? Because he’s always spotted.'
+        },
+        {
+            id:3,
+            title:"Third joke",
+            content:'What do you call two monkeys who share an Amazon account? Prime mates.'
+        },
+        {
+            id:4,
+            title:"Forth joke",
+            content:'Which is faster, hot or cold? Hot, because you can catch a cold.'
+        },
+        {
+            id:5,
+            title:"Fifth joke",
+            content:'What do you call a factory that makes OK products? A satisfactory.'
+        },
+    ];
+    res.send(jokes)
+});
+
+
 app.get('/',(req,res)=>{
     res.send('hello friends')
 })
@@ -50,5 +84,5 @@ app.get('/github',(req,res)=>{
     res.json(githubData)
 })
 app.listen(process.env.PORT,()=>{
-    console.log(`example app listening at port: ${port}`)
+    console.log(`Serve at https://localhost: ${port}`)
 })
